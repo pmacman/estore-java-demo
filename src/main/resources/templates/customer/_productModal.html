@@ -1,0 +1,26 @@
+<h4 th:text="${product.name}" class="mb-4 text-danger"></h4>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>Price: $<span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></span></strong></p>
+
+        <p><strong>Quantity: <span th:text="${product.quantity}"></span></strong></p>
+
+        <p><strong>Status: <span th:text="${product.status}"></span></strong></p>
+    </div>
+</div>
+
+<h5>Description</h5>
+<div th:utext="${product.description}"></div>
+
+<form id="addToCartForm" th:action="@{/add-to-cart}" th:object="${cart}" method="post" class="section">
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{cartDetails[0].product.id}" />
+
+    <div class="form-group">
+        <label for="quantity">Quantity</label> <span class="text-danger">*</span>
+        <input type="number" th:field="*{cartDetails[0].quantity}" id="quantity" class="form-control" style="width: 75px;" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add to cart</button>
+</form>

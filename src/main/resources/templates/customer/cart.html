@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default.html}">
+<head>
+    <title>estore - Cart</title>
+</head>
+<section layout:fragment="content">
+    <!--/*@thymesVar id="cart" type="com.estore.entity.Cart"*/-->
+
+    <h1>Cart</h1>
+
+    <p th:if="${cart.getId() == 0}">Your cart is empty.</p>
+
+    <div th:if="${cart.getId() > 0}">
+        <table class="table table-active table-bordered" style="width: auto;" th:each="cartDetail : ${cart.getCartDetails()}">
+            <tbody>
+            <tr>
+                <td colspan="2" th:text="${cartDetail.getProduct().getName()}" style="font-weight:bold;"></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><span th:text="${cartDetail.getQuantity()}"></span> <a href="#" class="ml-2">change</a></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>$<span th:text="${#numbers.formatDecimal(cartDetail.getProduct().getPrice(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <form action="#" th:action="@{/customer/cart-remove-item}" th:object="${cartDetail}" method="post">
+                        <button type="button" class="btn btn-primary btn-sm js-remove-item-btn" th:value="*{getProduct().getId()}">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Summary</h4>
+
+        <table class="table table-active table-bordered" style="width: auto;">
+            <tbody>
+            <tr>
+                <td class="text-primary">Total</td>
+                <td>$<span th:text="${#numbers.formatDecimal(cart.calculateBaseTotal(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+            </tr>
+            <tr>
+                <td class="text-primary">Tax</td>
+                <td>$<span th:text="${#numbers.formatDecimal(cart.calculateTax(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+            </tr>
+            <tr>
+                <td class="text-primary">Shipping</td>
+                <td>$<span th:text="${#numbers.formatDecimal(cart.calculateShippingCost(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+            </tr>
+            <tr>
+                <td class="text-primary">Grand Total</td>
+                <td>$<span th:text="${#numbers.formatDecimal(cart.calculateTotal(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 class="section">Shipping</h3>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input type="checkbox" checked class="form-check-input" />
+                Shipping address same as billing address
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="shippingMethod">Country</label>
+            <select id="shippingMethod" class="form-control">
+                <option>STANDARD</option>
+                <option>PRIORITY</option>
+            </select>
+        </div>
+
+        <h3 class="section">Payment</h3>
+
+        <div class="form-group">
+            <label for="creditCardNumber">Credit Card Number</label>
+            <input type="text" id="creditCardNumber" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="expirationDate">Expiration Date</label>
+            <input type="date" id="expirationDate" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="number" id="cvv" class="form-control" style="width: 100px;" />
+        </div>
+
+        <div class="form-group section">
+            <form action="#" th:action="@{/customer/order}" th:object="${cart}" method="post">
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script layout:fragment="script">
+    $(function() {
+        App.CartModule.init();
+    });
+</script>
+
+</html>

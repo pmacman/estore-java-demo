@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default.html}">
+<head>
+    <title>estore - Partner Profile</title>
+</head>
+<section layout:fragment="content">
+    <!--/*@thymesVar id="partnerDto" type="com.estore.dto.PartnerDto"*/-->
+    <!--/*@thymesVar id="partner" type="com.estore.entity.Partner"*/-->
+
+    <div class="mb-4">
+        <a th:href="@{/partner/search}" class="btn btn-primary mr-4">Manage Products</a>
+        <a th:href="@{/partner/order-history}" class="btn btn-primary">Customer Orders</a>
+    </div>
+
+    <h1>Partner Profile</h1>
+
+    <div class="col-lg-8">
+        <form id="partnerProfileForm" action="#" th:action="@{/partner}" th:object="${partnerDto.partner}" method="post">
+            <div class="form-group">
+                <label for="companyName">Company Name</label> <span class="text-danger">*</span>
+                <input type="text" th:field="*{companyName}" id="companyName" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyDescription">Company Description</label>
+                <textarea th:field="*{companyDescription}" id="companyDescription" class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="street1">Street Address</label>
+                <input type="text" th:field="*{street1}" id="street1" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="street2">Street Address 2</label>
+                <input type="text" th:field="*{street2}" id="street2" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" th:field="*{city}" id="city" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" th:field="*{country.iso2}" class="form-control">
+                    <option value="">Please select</option>
+                    <option th:each="countryItem : ${countryDtos}" th:value="${countryItem.country.iso2}" th:text="${countryItem.country.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="partner.state.id" class="form-control">
+                    <option value="">Please select</option>
+                </select>
+                <input type="hidden" th:field="*{state.id}" id="stateId" />
+            </div>
+
+            <div class="form-group">
+                <label for="zip">Zip Code</label>
+                <input type="text" th:field="*{zip}" id="zip" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" th:field="*{phone}" id="phone" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" th:field="*{email}" id="email" class="form-control" />
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" checked th:field="*{active}" id="active" class="form-check-input" />
+                <label for="active" class="form-check-label">Active</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section>
+
+<script layout:fragment="script">
+    $(function() {
+        App.LocaleModule.init();
+        App.PartnerModule.init();
+    });
+</script>
+
+</html>

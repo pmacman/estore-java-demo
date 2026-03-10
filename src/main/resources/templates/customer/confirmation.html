@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default.html}">
+<head>
+    <title>estore - Order Confirmation</title>
+</head>
+<section layout:fragment="content">
+    <h1>Order Confirmation</h1>
+
+    <p>Thank you for your order. You will be receiving an email confirmation shortly.</p>
+
+    <div class="section">
+        <a class="btn btn-primary" th:href="@{/customer/order-history}">Check Order Status</a>
+    </div>
+</section>
+</html>

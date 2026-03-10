@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-1" th:fragment="navbar">
+    <a class="navbar-brand" href="/" style="font-size: 30px;">estore</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item pr-lg-5">
+                <a class="nav-link" th:href="@{/customer}">Customers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/partner}">Partners</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+<!-- Authenticated -->
+            <li class="nav-link" sec:authorize="isAuthenticated()">
+                <a class="nav-link text-primary" th:href="@{/customer/cart}">CART</a>
+            </li>
+            <li class="nav-item dropdown" style="margin-top:8px;" sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" th:text="${profile.get('name').asString()}">
+                    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-default">
+                    <a class="dropdown-item" th:href="@{/profile}"> Profile</a>
+                    <a class="dropdown-item" th:href="@{/customer/order-history}"> Order History</a>
+                    <a class="dropdown-item" th:href="@{/logout}"> Log out</a>
+                </div>
+            </li>
+<!-- / Authenticated -->
+        </ul>
+<!-- Not authenticated -->
+        <form class="ml-auto" th:action="@{/login}" method="GET" sec:authorize="!isAuthenticated()">
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+        </form>
+<!-- / Not authenticated -->
+    </div>
+</nav>
+</html>

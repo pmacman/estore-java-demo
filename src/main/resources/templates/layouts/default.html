@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link rel="stylesheet" th:href="@{/dist/vendor.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/site.css}"/>
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/_navbar :: navbar"></div>
+    </header>
+
+    <div class="layout">
+        <main>
+            <div layout:fragment="content"></div>
+        </main>
+    </div>
+
+    <footer>Copyright © 2019 estore</footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script th:src="@{/dist/vendor.js}"></script>
+    <script th:src="@{/dist/site.js}"></script>
+
+    <script layout:fragment="script"></script>
+</body>
+</html>

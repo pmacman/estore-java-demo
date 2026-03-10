@@ -1,0 +1,35 @@
+<form id="productForm" th:action="@{/partner/product}" th:object="${product}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="form-group">
+        <label for="name">Product Name</label> <span class="text-danger">*</span>
+        <input type="text" th:field="*{name}" id="name" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Product Description</label>
+        <textarea th:field="*{description}" id="description" class="form-control" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" step="0.01" th:field="*{price}" th:value="*{#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}" id="price" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" th:field="*{quantity}" id="quantity" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select th:field="*{status}" id="status" class="form-control">
+            <option th:value="ACTIVE" th:text="ACTIVE"></option>
+            <option th:value="BACKORDERED" th:text="BACKORDERED"></option>
+            <option th:value="DISCONTINUED" th:text="DISCONTINUED"></option>
+            <option th:value="INACTIVE" th:text="INACTIVE"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

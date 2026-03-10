@@ -1,0 +1,48 @@
+{
+  "name": "estore",
+  "version": "1.0.0",
+  "description": "Welcome to the E-Store project! This is a simple Java application demonstrating the functionality of an e-commerce application.",
+  "author": "pj-mac",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "webpack --mode production --env.production",
+    "build:dev": "webpack --mode development --env.development",
+    "lint": "eslint src/main/resources/static/js; exit 0",
+    "watch": "webpack --watch"
+  },
+  "keywords": [],
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "bootswatch": "^4.3.1",
+    "datatables.net": "^1.10.20",
+    "datatables.net-bs4": "^1.10.20",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "babel-loader": "^8.0.6",
+    "core-js": "^3.4.1",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "regenerator-runtime": "^0.13.3",
+    "script-loader": "^0.7.2",
+    "terser-webpack-plugin": "^2.2.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

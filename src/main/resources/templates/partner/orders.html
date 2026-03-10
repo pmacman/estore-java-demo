@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default.html}">
+<head>
+    <title>estore - Orders</title>
+</head>
+<section layout:fragment="content">
+    <!--/*@thymesVar id="orders" type="CollectionModel<com.estore.entity.Order>"*/-->
+
+    <h1>Orders</h1>
+
+    <section class="card" th:each="order : ${orders}">
+        <div class="card-body">
+            <table class="table table-active table-bordered" style="width: auto;" th:each="orderDetail : ${order.getOrderDetails()}">
+                <tbody>
+                <tr>
+                    <td colspan="2" th:text="${orderDetail.getProduct().getName()}" style="font-weight:bold;"></td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td><span th:text="${orderDetail.getQuantity()}"></span> <a href="#" class="ml-2">change</a></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>$<span th:text="${#numbers.formatDecimal(orderDetail.getProduct().getPrice(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-active table-bordered" style="width: auto;">
+                <tbody>
+                <tr>
+                    <td class="text-primary">Total</td>
+                    <td>$<span th:text="${#numbers.formatDecimal(order.calculateBaseTotal(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+                </tr>
+                <tr>
+                    <td class="text-primary">Tax</td>
+                    <td>$<span th:text="${#numbers.formatDecimal(order.calculateTax(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+                </tr>
+                <tr>
+                    <td class="text-primary">Shipping</td>
+                    <td>$<span th:text="${#numbers.formatDecimal(order.calculateShippingCost(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+                </tr>
+                <tr>
+                    <td class="text-primary">Grand Total</td>
+                    <td>$<span th:text="${#numbers.formatDecimal(order.calculateTotal(), 0, 'COMMA', 2, 'POINT')}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" class="form-control" style="width: auto;">
+                    <option>NEW</option>
+                    <option>PENDING</option>
+                    <option>CANCELLED</option>
+                    <option>COMPLETE</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+</html>
